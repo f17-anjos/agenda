@@ -31,11 +31,11 @@ class Contato:
 
     @classmethod
     def pesquisar_nome(cls, nome):
-        encontrados = []
-        for c in db:
-            if db[c]['nome'].find(nome) >= 0:
-                encontrados.append(db[c])
-        return encontrados
+        try:
+            existing = db[nome]
+            print(existing)
+        except KeyError as e:
+            print(f'O usuário informado não existe na Agenda.')
 
     @classmethod
     def remover(cls, contato_id):
@@ -52,7 +52,7 @@ class Contato:
         try:
             return db[contato_id]
         except IndexError:
-            return {}
+            return False
 
     @classmethod
     def tudo(cls):
